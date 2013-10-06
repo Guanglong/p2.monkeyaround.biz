@@ -1,7 +1,7 @@
 <?php
-echo "Hello world";
+# phpinfo();
 # The DOC_ROOT and APP_PATH constant have to happen in the actual app
-
+  
 	# Document root, ex: /path/to/home/app.com/../ (uses ./ on CLI)
 	define('DOC_ROOT', empty($_SERVER['DOCUMENT_ROOT']) ? './' : realpath($_SERVER['DOCUMENT_ROOT']).'/../');
 	  
@@ -25,6 +25,7 @@ echo "Hello world";
 # You can use regexp, for example '/users/([A-Za-z0-9-\s\@]+)' => '/members/$0',
     Router::$routes = array(
     	'/' => '/index',     # default controller when "/" is requested
+        '/test.do' =>'/index',
     );
     
 # Match requested uri to any routes and instantiate controller
