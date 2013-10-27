@@ -14,7 +14,7 @@ If you want a different default time format for this app, set it below
 */
 
 # What is the name of this app?
-	define('APP_NAME', 'Sample App');  
+	define('APP_NAME', 'Monkey Blog');  
 
 # When email is sent out from the server, where should it come from?
 # Ideally, this should match the domain name
@@ -31,7 +31,10 @@ A email designated to receive messages from the server. Examples:
 	define('SYSTEM_EMAIL', 'webmaster@myapp.com'); 
 
 # Default DB name for this app
-	define('DB_NAME', "myapp_com"); 
+#	define('DB_NAME', "p2_monkeyaround_biz"); 
+    #define('DB_HOST', 'localhost');
+    #define('DB_USER', 'glong');
+    #define('DB_PASS', '1qaz!QAZ'); 
 
 # Timezone
 	define('TIMEZONE', 'America/New_York');
@@ -43,5 +46,7 @@ A email designated to receive messages from the server. Examples:
 	//define('SMTP_PASSWORD', '');
 
 # For extra security, you might want to set different salts than what the core uses
+define('PASSWORD_SALT', 'monkeysDanceAround');
+define('TOKEN_SALT', 'smonkeysDanceAround');
 	//define('PASSWORD_SALT', '');
 	//define('TOKEN_SALT', '');
