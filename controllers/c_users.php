@@ -58,7 +58,7 @@
 
       $token = DB::instance(DB_NAME)->select_field($q);
       //print_r($_POST);
-      echo $token;
+      //echo $token;
 
       # If we didn't find a matching token in the database, it means login failed
       if(!$token) {        
