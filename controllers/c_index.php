@@ -22,8 +22,8 @@ class index_controller extends base_controller {
 			$this->template->title = "Hello World";
 	
 		# CSS/JS includes
-			/*
-			$client_files_head = Array("");
+		/*
+		$client_files_head = Array("");
 	    	$this->template->client_files_head = Utils::load_client_files($client_files);
 	    	
 	    	$client_files_body = Array("");
@@ -31,7 +31,7 @@ class index_controller extends base_controller {
 	    	*/
 	      					     		
 		# Render the view
-			echo $this->template;
+		echo $this->template;
 
 	} # End of method
 	
