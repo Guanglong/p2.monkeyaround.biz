@@ -10,8 +10,7 @@
       echo "This is the index page";
     }
 
-    public function signup() {
-      echo "This is the signup page";        
+    public function signup() {        
       # Setup view
       $this->template->content = View::instance('v_users_signup');
       $this->template->title   = "Sign Up";
@@ -51,15 +50,13 @@
 
       # Search the db for this email and password
       # Retrieve the token if it's available
-      $q = "SELECT token 
+      $q = "SELECT token
             FROM users 
             WHERE email = '".$_POST['email']."' 
             AND password = '".$_POST['password']."'";
 
       $token = DB::instance(DB_NAME)->select_field($q);
-      //print_r($_POST);
-      //echo $token;
-
+      //$token = $row[3];
       # If we didn't find a matching token in the database, it means login failed
       if(!$token) {        
           # Send them back to the login page
@@ -67,16 +64,31 @@
 
       # But if we did, login succeeded! 
       } else {
+          // get the count for the update 
+                $loginCountQuery = "SELECT login_Count
+                FROM users 
+                WHERE email = '".$_POST['email']."' 
+                 AND password = '".$_POST['password']."'";
+                 $loginCount= DB::instance(DB_NAME)->select_field($loginCountQuery);        
+        if (is_null($loginCount)) {
+            $loginCount = 1;
+         } else {
+             $loginCount +=1;
+       }
+      $updateQuery = "update users set login_Count = ".$loginCount.",last_login=".Time::now()." where email = '".$_POST['email']."'  AND password = '".$_POST['password']."'";     
 
-        /* 
+      # Do the update
+        DB::instance(DB_NAME)->query($updateQuery);        
+       /*  
         Store this token in a cookie using setcookie()
         Important Note: *Nothing* else can echo to the page before setcookie is called
         Not even one single white space.
         param 1 = name of the cookie
         param 2 = the value of the cookie
         param 3 = when to expire
-        param 4 = the path of the cooke (a single forward slash sets it for the entire domain)
+        param 4 = the path of the cooke (a single forward slash sets it for the entire domain)        
         */
+        
         setcookie("token", $token, strtotime('+1 year'), '/');     
         # Send them to the main page - or whever you want them to go
         Router::redirect("/");
@@ -131,8 +143,7 @@
   
   
     public function deleteUser($user_Id=NULL) { 
-      $q = "delete from users where user_id = $user_Id";
-      echo $q;
+      $q = "delete from users where user_id = $user_Id";     
       DB::instance(DB_NAME)->query($q);      
       echo "user removed from ".DB_NAME;
     }
