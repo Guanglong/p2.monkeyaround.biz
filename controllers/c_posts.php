@@ -10,12 +10,12 @@ class posts_controller extends base_controller {
         }
     }
 
-    public function add() {
+    public function add($status=NULL) {
 
         # Setup view
         $this->template->content = View::instance('v_posts_add');
         $this->template->title   = "New Post";
-
+        $this->template->content->status = $status;
         # Render template
         echo $this->template;
 
@@ -35,8 +35,9 @@ class posts_controller extends base_controller {
         DB::instance(DB_NAME)->insert('posts', $_POST);
 
         # Quick and dirty feedback
-        echo "Your post has been added. <a href='/posts/add'>Add another</a>";
-
+       #echo "Your post has been added. <a href='/posts/add'>Add another</a>";
+       # forward to posts/add to render the add page
+      Router::redirect("/posts/add/status");
       }
 
      public function index() {

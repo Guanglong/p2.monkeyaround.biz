@@ -19,7 +19,7 @@ class index_controller extends base_controller {
 			$this->template->content = View::instance('v_index_index');
 			
 		# Now set the <title> tag
-			$this->template->title = "Hello World";
+			$this->template->title = "Monkey Blog";
 	
 		# CSS/JS includes
 		/*
@@ -29,7 +29,7 @@ class index_controller extends base_controller {
 	    	$client_files_body = Array("");
 	    	$this->template->client_files_body = Utils::load_client_files($client_files_body);   
 	    	*/
-	      					     		
+	     				     		
 		# Render the view
 		echo $this->template;
 
