@@ -1,3 +1,58 @@
 .error {
     color:red;
 }
+
+
+header {
+   text-align: center;   
+   border-width: 1; 
+   border: solid; 
+   background: yellow ;
+   border-radius: 15px;
+   padding: 20px 15%;  
+ }
+pageInstruction {
+   font-size:20;      
+   background: yellow ;  
+   text-align: center; 
+   display: block; 
+}
+body {
+  background: rgb(100,200,100)  ;
+  padding: 20px 15%;  
+  width: 70%;    
+} 
+
+.main {
+  border-width: 1; 
+  border: solid; 
+  text-align: center;
+  background: white ;
+  border-radius: 15px;
+  box-shadow:5px 5px 5px 20px yellow inset;  
+  text-shadow: 5px 3px 1px #bbbaba;
+}
+
+div#mainContent {  
+    display: block;  
+    margin-bottom: 20px;
+    padding: 15px 10px;  
+    text-align: center;
+}  
+
+article {
+    display: block;   
+    color:red;
+ }   
+footer {
+   text-align: center;   
+   background: yellow ;     
+ }
+button {   
+    color:red;
+   font-size: 8;
+   width: 135px;
+  height: 30px; 
+  margin: 0;
+  padding: 0   
+ }
