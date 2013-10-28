@@ -3,7 +3,7 @@
 
     public function __construct() {
       parent::__construct();          
-      $this->template->set_global('client_files_head', '<script type="text/javascript" src="/js/users.js"></script>');
+      //$this->template->set_global('client_files_head', '<script type="text/javascript" src="/js/users.js"></script>');
     } 
 
     public function index() {
@@ -14,6 +14,16 @@
       # Setup view
       $this->template->content = View::instance('v_users_signup');
       $this->template->title   = "Sign Up";
+     # Create an array of 1 or many client files to be included in the head
+      $client_files_head = Array(
+        '/css/widgets.css',
+        '/css/signup.css',
+        '/js/signup.js'
+        );
+
+      # Use load_client_files to generate the links from the above array
+      $this->template->client_files_head = Utils::load_client_files($client_files_head);   
+
       # Render template
       echo $this->template;            
     }
@@ -141,7 +151,11 @@
       echo $this->template;
     }
   
-  
+   public function checkEmail($email =NULL) {
+    $q = "select count(email) as email_count from users where email = '".$email."'";   
+    $emailCount =  DB::instance(DB_NAME)->select_field($q);  
+    echo $emailCount;
+    }
     public function deleteUser($user_Id=NULL) { 
       $q = "delete from users where user_id = $user_Id";     
       DB::instance(DB_NAME)->query($q);      
