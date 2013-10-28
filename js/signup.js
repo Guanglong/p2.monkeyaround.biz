@@ -1,9 +1,17 @@
 function checkEmail(email){
    var email = document.getElementsByName("email")[0].value;
+   
     if (email.length >0 ) {      
-       checkEmailViaAjax(email);
+       if (!validEmailFormat(email)){ document.getElementById('emailValidation').innerHTML="Invalid Email Address"; }
+       else {checkEmailViaAjax(email); }
    }
 }
+
+
+function validEmailFormat(email) { 
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+} 
 
 // the strength is made of:
 //  
@@ -127,6 +135,9 @@ function handleOnCheckEmail(ajaxData){
         document.getElementsByName('email')[0].innerHTML ="";
         document.getElementById('emailValidation').innerHTML="Email is already used by Monkey Blog";
      }
+     else {
+       document.getElementById('emailValidation').innerHTML="";
+     }   
   }
 }
 
