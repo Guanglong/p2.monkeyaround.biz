@@ -1,4 +1,6 @@
-<form method='POST'  action='/users/p_signup'>
+<pageInstruction> to sign up with us, enter values and then submit.</pageInstruction>
+ <br/>
+<form class='main' method='POST'  action='/users/p_signup'>
 
     First Name<br>
     <input type='text' name='first_name'>

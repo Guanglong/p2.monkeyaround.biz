@@ -1,5 +1,5 @@
+<pageInstruction>use your email to Log in</pageInstruction>
 <form method='POST' action='/users/p_login'>
-
     Email<br>
     <input type='text' name='email'>    
     <br><br>
@@ -14,7 +14,5 @@
         </div>
         <br>
     <?php endif; ?>
-
-    <input type='submit' value='Log in'>
-
+    <button  >Log in </button>
 </form>
