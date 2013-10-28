@@ -10,12 +10,15 @@
 
     Email<br>
     <input type='text' name='email' onchange='javascript:checkEmail();'>
+    <div class="error" id="emailValidation"> </div>
     <br><br>
 
     Password<br>
-    <input type='password' name='password'>
+    <input type='password' name='password' onKeyUp="javascript:displayStrength();">
+    
     <br><br>
-
+    Password Strength:
+    <div id='pwStrength' class='pwStrength'>  </div> <br>
+     <br><br>
     <input type='submit' value='Sign up'>
-
 </form>
