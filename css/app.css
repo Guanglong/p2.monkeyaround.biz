@@ -2,7 +2,6 @@
     color:red;
 }
 
-
 header {
    text-align: center;   
    border-width: 1; 
@@ -12,15 +11,15 @@ header {
    padding: 20px 15%;  
  }
 pageInstruction {
-   font-size:20;      
-   background: yellow ;  
+   font-size:30;       
    text-align: center; 
    display: block; 
+   color:red;
 }
 body {
   background: rgb(100,200,100)  ;
-  padding: 20px 15%;  
-  width: 70%;    
+  padding: 40px 25%;  
+  width: 50%;    
 } 
 
 .main {
@@ -45,8 +44,7 @@ article {
     color:red;
  }   
 footer {
-   text-align: center;   
-   background: yellow ;     
+   text-align: center;    
  }
 button {   
     color:red;
@@ -56,3 +54,8 @@ button {
   margin: 0;
   padding: 0   
  }
+
+div {
+      text-align: center;
+}
+

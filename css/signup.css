@@ -1,10 +1,5 @@
 .pwStrength{
     background-color:red;
     width:0px;
-    height: 20px;
-    white-space: nowrap;
-}
-
-.error {
-   color:red;    
-}
+    height: 20px; 
+} 
