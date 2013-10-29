@@ -1,7 +1,8 @@
 <pageInstruction>Follow/Un-follow People</pageInstruction>
+<br/>
 <?php foreach($users as $user): ?>
     <!-- Print this user's name -->
-    <?=$user['first_name']?> <?=$user['last_name']?>
+    <div><?=$user['first_name']?> <?=$user['last_name']?>
 
     <!-- If there exists a connection with this user, show a unfollow link -->
     <?php if(isset($connections[$user['user_id']])): ?>
@@ -11,7 +12,6 @@
     <?php else: ?>
         <a href='/posts/follow/<?=$user['user_id']?>'>Follow</a>
     <?php endif; ?>
-
-    <br><br>
-
+  </div>
+    <br>
 <?php endforeach; ?>

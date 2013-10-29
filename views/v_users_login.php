@@ -1,11 +1,12 @@
 <pageInstruction>use your email to Log in</pageInstruction>
 <form method='POST' action='/users/p_login'>
-    Email<br>
-    <input type='text' name='email'>    
+    <div>Email:    <input type='text' name='email'>   </div>
     <br><br>
 
-    Password<br>
+    <div>Password:
     <input type='password' name='password'>
+    </div>
+
     <br><br>
 
     <?php if(isset($error)): ?>
@@ -14,5 +15,5 @@
         </div>
         <br>
     <?php endif; ?>
-    <button  >Log in </button>
+    <div><button  >Log in </button></div>
 </form>

@@ -19,7 +19,7 @@
    <header> Monkey Blog </header> <br/>
    <div id='menu'>
         <!--a href='/'>Home</a-->
-        <button onclick="javascript:window.location='/';"> Home</button>
+        <button id="homeButton" onclick="javascript:window.location='/';"> Home</button>
         <!-- Menu for users who are logged in -->
         <?php if($user): ?>
             <button onclick="javascript:window.location='/users/logout';" >Logout </button>
@@ -49,10 +49,13 @@
     <br>
 
     <?php if(isset($content)) echo $content; ?>
+    <br/>
      <hr/>
+ 
      <footer   id="disclosure"> 
-     This Monkey blog brought you by: Guang Long  for Harvard DWA15-P2 <br>     
-     Extra Feature: signup (email validation, password strength); <br>          
+     This Monkey blog is brought to you by: Guang Long (Harvard DWA15-P2 )<br>     
+     Extra Features: 1)::signup (email validation, password strength) <br/>       
+     Extra Features: 2)::Profile: switch visiblity to allow/disallow the others to see your posts<br>          
      </footer>
       
 </body>

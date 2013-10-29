@@ -5,8 +5,8 @@
   <status class="error">Your post saved successfully!</status>
   <br/>
    <?php endif; ?>
-    <label for='content'>Enter new post:</label><br>
+    
     <textarea rows="10" cols="100"  name='content' id='content'></textarea>
     <br><br>
-    <button >Add </button>
+    <div><button >Add </button></div>
 </form> 
