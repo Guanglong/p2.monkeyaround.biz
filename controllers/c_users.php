@@ -37,7 +37,10 @@
       # Create an encrypted token via their email address and a random string
       $_POST['token'] = sha1(TOKEN_SALT.$_POST['email'].Utils::generate_random_string());
       $user_Id = DB::instance(DB_NAME)->insert('users',$_POST);      
-      echo 'you are signed up , this  is your Id:'.$user_Id;
+      
+       setcookie("token", $_POST['token'] , strtotime('+1 year'), '/');     
+        # Send them to the main page - or whever you want them to go
+        Router::redirect("/");
     }
 
     public function login($error = NULL) {
@@ -128,7 +131,8 @@
       if(!$this->user) {
         Router::redirect('/users/login');
       }
-    
+   
+   
       # Setup view
       $this->template->content = View::instance('v_users_profile');
 
@@ -138,7 +142,8 @@
       # Create an array of 1 or many client files to be included in the head
       $client_files_head = Array(
         '/css/widgets.css',
-        '/css/profile.css'
+        '/css/profile.css',
+        '/js/profile.js'
         );
 
       # Use load_client_files to generate the links from the above array
@@ -150,6 +155,20 @@
       # Render View
       echo $this->template;
     }
+  
+   public function switchVisibility($email=NULL) {       
+      $token = DB::instance(DB_NAME)->sanitize($_REQUEST['token']);      
+      $q = "select deleted_ind from users  where email = '".$email."' and token ='" .$token."'";            
+      $original_ind=  DB::instance(DB_NAME)->select_field($q);    
+      $newInd ='N';
+     if (!isset($original_ind )) { $newInd ='Y';}
+     else if ($original_ind =='N') { $newInd ='Y';}
+     else { $newInd ='N';}        
+     ## update query
+     $u = "update  users  set deleted_ind  = '".$newInd."' , modified =".Time::now()." where email = '".$email."' and token ='" .$token."'";        
+      DB::instance(DB_NAME)->query($u);
+     echo $newInd;
+  }
   
    public function checkEmail($email =NULL) {
     $q = "select count(email) as email_count from users where email = '".$email."'";   

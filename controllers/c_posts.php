@@ -47,7 +47,7 @@ class posts_controller extends base_controller {
         $this->template->title   = "All Posts";
 
         # Query
-        $q = 'SELECT 
+        $q = "SELECT 
                 posts.content,
                 posts.created,
                 posts.user_id AS post_user_id,
@@ -59,7 +59,8 @@ class posts_controller extends base_controller {
                 ON posts.user_id = users_users.user_id_followed
             INNER JOIN users 
                 ON posts.user_id = users.user_id
-            WHERE users_users.user_id = '.$this->user->user_id;
+            WHERE users.deleted_ind ='N'
+               AND users_users.user_id = ".$this->user->user_id;
 
         # Run the query, store the results in the variable $posts
         $posts = DB::instance(DB_NAME)->select_rows($q);
@@ -80,7 +81,7 @@ class posts_controller extends base_controller {
 
         # Build the query to get all the users
         $q = "SELECT *
-            FROM users";
+            FROM users WHERE DELETED_IND ='N'";
 
         # Execute the query to get all the users. 
         # Store the result array in the variable $users
