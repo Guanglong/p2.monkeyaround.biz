@@ -49,15 +49,14 @@ function validEmailFormat(email) {
 // max strength is 15
 
 function displayStrength(){
-   // max strength is 18
- 
+   // max strength is 20 
    var currentStrength = Number( calculateStrength());
    var pwPercent = Math.round(100*currentStrength/15);  
    document.getElementById('pwStrength').style.width = Number(currentStrength*20)+"px";
   if ( currentStrength ==0) {
      document.getElementById('pwStrength').innerHTML = "";
    }
-  else if ( currentStrength <6) {
+  else if ( currentStrength <9) {
      document.getElementById('pwStrength').innerHTML = "weak";
    }
    else if (currentStrength <12) {
@@ -73,6 +72,9 @@ function calculateStrength(){
    var passWord = document.getElementsByName("password")[0].value;
    var totalStrength =0;
    if (passWord.length>0){
+
+       if (passWord.length >=4)  totalStrength =2;
+       else { totalStrength =1}; 
 
       // check for digits
      var digits = passWord.match(/\d/gi);
