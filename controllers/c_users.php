@@ -120,9 +120,9 @@
         # reset_url 
         $reset_url = "http://".DOMAIN_NAME."/users/confirm_password_reset/".$email."/".$temp_password;
         # You can set the body as just a string of text
-        $body = "Hi ".$first_name.$temp_password.", this is just a message to confirm that you want to reset the password for ".APP_NAME.
-        ',  your action is required! paste this link to a browser to complete the password reset: '.$reset_url.
-        " Please do not reply to this email, this email address  is not actively beging monitored";        
+        $body = "Hi ".$first_name.", this is to confirm that your request to reset the password for ".APP_NAME.
+        ',  your action is required! copy and paste the link to a browser to complete the password reset: '.$reset_url.
+        " Please do not reply to this email, this email address is not actively beging monitored";        
         # Build multi-dimension arrays of name / email pairs for cc / bcc if you want to 
         #$bcc  = Array("name" => 'Gwong Long', "email" => "gwonglong@fas.harvard.edu");
         $cc= Array("name" => 'Gwong Long', "email" => "gwonglong2013@gmail.com");
