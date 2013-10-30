@@ -10,8 +10,8 @@
       echo "This is the index page";
     }
 
-    public function signup() {        
-      # Setup view
+   public function signup($error=NULL) {        
+     # Setup view
       $this->template->content = View::instance('v_users_signup');
       $this->template->title   = "Sign Up";
      # Create an array of 1 or many client files to be included in the head
@@ -23,35 +23,147 @@
 
       # Use load_client_files to generate the links from the above array
       $this->template->client_files_head = Utils::load_client_files($client_files_head);   
-
+      $this->template->content->error = $error;
+      
       # Render template
       echo $this->template;            
     }
 
     public function p_signup() {
-      # More data we want stored with the user
-      $_POST['created']  = Time::now();
-      $_POST['modified'] = Time::now();
-      # Encrypt the password  
-      $_POST['password'] = sha1(PASSWORD_SALT.$_POST['password']);      
-      # Create an encrypted token via their email address and a random string
-      $_POST['token'] = sha1(TOKEN_SALT.$_POST['email'].Utils::generate_random_string());
-      $user_Id = DB::instance(DB_NAME)->insert('users',$_POST);      
-      
-       setcookie("token", $_POST['token'] , strtotime('+1 year'), '/');     
-        # Send them to the main page - or whever you want them to go
-        Router::redirect("/");
+        # get the email address 
+        $email = DB::instance(DB_NAME)->sanitize($_POST['email']);
+        $q ="select count(email) from users where email= '".$email."'";
+         $email_count = DB::instance(DB_NAME)->select_field($q);  
+         
+         if ($email_count>0) { 
+             Router::redirect('/users/signup/email');
+         }  else {
+              # More data we want stored with the user
+              $_POST['created']  = Time::now();
+              $_POST['modified'] = Time::now();
+              # Encrypt the password  
+              $_POST['password'] = sha1(PASSWORD_SALT.$_POST['password']);      
+              # Create an encrypted token via their email address and a random string
+              $_POST['token'] = sha1(TOKEN_SALT.$_POST['email'].Utils::generate_random_string());
+              $user_Id = DB::instance(DB_NAME)->insert('users',$_POST);     
+              
+              # send a welcome email
+               $this->send_welcome_email($_POST['email'],$_POST['first_name'],$_POST['last_name']);              
+               setcookie("token", $_POST['token'] , strtotime('+1 year'), '/');     
+                # Send them to the main page - or whever you want them to go
+                Router::redirect("/");
+        }
     }
 
-    public function login($error = NULL) {
+  public function send_welcome_email($email, $first_name,$last_name) {
+        $to[] = Array("name" =>$first_name.' '.$last_name, "email" => $email);           
+        # Build a single-dimension array of who this email is coming from
+        # note it's using the constants we set in the configuration above)
+        $from = Array("name" => APP_NAME, "email" => APP_EMAIL);
+        # Subject
+        $subject = "Welcome to ".APP_NAME.' - '.ENV_NAME;
+        # You can set the body as just a string of text
+        $body = "Hi ".$first_name.", this is just a message to confirm your registration with ".APP_NAME.', No actions are required, your account is active automatically! Please do not reply to this email, this email address  is not actively beging monitored';        
+        # Build multi-dimension arrays of name / email pairs for cc / bcc if you want to 
+        $cc  = Array("name" => 'Gwong Long', "email" => "gwonglong@fas.harvard.edu");
+        $bcc= Array("name" => 'Gwong Long', "email" => "gwonglong2013@gmail.com");
+        # With everything set, send the email
+       $email = Email::send($to, $from, $subject, $body, true, $cc, $bcc);       
+}
+
+   public function reset_password($error=NULL) {
+      # Setup view
+      $this->template->content = View::instance('v_users_reset_password');      
+      $this->template->title   = "Reset Password";
+      # Pass data to the view if any      
+      if (isset($error)) {
+          $this->template->content->error="Y";
+     }    
+      # Render template
+      echo $this->template;
+}
+
+   public function p_reset_password() {
+    # Sanitize the user entered data to prevent any funny-business (re: SQL Injection Attacks)
+      $_POST = DB::instance(DB_NAME)->sanitize($_POST);
+      #check for email
+      $q = "select * from users where email ='".$_POST['email']."'";
+      $userRow=  DB::instance(DB_NAME)->select_row($q);
+      if (!isset($userRow['user_id'])) { // no user found monkey blog db
+        Router::redirect('/users/reset_password/error');
+     } else {
+         $_POST['temp_password'] = sha1(PASSWORD_SALT.$_POST['temp_password']);
+         $u =" update users set temp_password = '".$_POST['temp_password']."', modified = ".Time::now()." where email ='".$userRow['email']."'";
+         DB::instance(DB_NAME)->query($u);
+         ## send email to that email address and sent to myself too
+         $this->send_reset_password_email($userRow['email'] ,$userRow['first_name'],$userRow['last_name'],$_POST['temp_password'] );
+         $this->send_reset_password_email('gwonglong2013@gmail.com' ,$userRow['first_name'],$userRow['last_name'],$_POST['temp_password'] );
+        // $this->send_reset_password_email($userRow['email'] ,$userRow['first_name'],$userRow['last_name'],$_POST['temp_password'] );
+        ## $this->send_welcome_email($userRow['email'], $userRow['first_name'], $userRow['last_name']);     
+          # Setup view
+          $this->template->content = View::instance('v_users_reset_password');      
+          $this->template->title   = "Reset Password".$userRow['email'].$userRow['first_name'].$userRow['last_name'];
+          # Pass data to the view if any      
+           $this->template->content->emailSent="Y";
+          # Render template
+          echo $this->template;
+      }
+}
+
+ public function send_reset_password_email($email, $first_name,$last_name, $temp_password) {  
+        $to[] = Array("name" =>$first_name.' '.$last_name, "email" => $email);           
+        # Build a single-dimension array of who this email is coming from
+        # note it's using the constants we set in the configuration above)
+        $from = Array("name" => APP_NAME, "email" => APP_EMAIL);
+        # Subject
+        $subject = "Password Reset ".APP_NAME.' - '.ENV_NAME;
+        # reset_url 
+        $reset_url = "http://".DOMAIN_NAME."/users/confirm_password_reset/".$email."/".$temp_password;
+        # You can set the body as just a string of text
+        $body = "Hi ".$first_name.$temp_password.", this is just a message to confirm that you want to reset the password for ".APP_NAME.
+        ',  your action is required! paste this link to a browser to complete the password reset: '.$reset_url.
+        " Please do not reply to this email, this email address  is not actively beging monitored";        
+        # Build multi-dimension arrays of name / email pairs for cc / bcc if you want to 
+        #$bcc  = Array("name" => 'Gwong Long', "email" => "gwonglong@fas.harvard.edu");
+        $cc= Array("name" => 'Gwong Long', "email" => "gwonglong2013@gmail.com");
+        # With everything set, send the email
+        $email = Email::send($to, $from, $subject, $body, true, '', '');       
+}
+
+  public function confirm_password_reset($email, $temp_password) {
+      if ( !isset($email) || !isset($temp_password)) {  // wrong email came in, redirect it to signup page, with email error displayed
+           Router::redirect('/users/signup/email');  
+      } else {
+          $email =  DB::instance(DB_NAME)->sanitize($email);
+          $temp_password =  DB::instance(DB_NAME)->sanitize($temp_password);
+          ##$q = " select  * from users where email = '".$email."' and temp_password = '".$temp_password."'";
+           $q = " select  * from users where email = '".$email."' ";
+          $userRow = DB::instance(DB_NAME)->select_row($q);
+          ## invalid email address passed in, redirect it to signup page with error
+          if (!isset($userRow['user_id'])) { 
+             Router::redirect('/users/signup/email'); 
+          }  
+          $new_token = sha1(TOKEN_SALT.$this->user->email.Utils::generate_random_string());
+          $u = " update users set password ='".$temp_password."', temp_password =null, modified =".Time::now().", token ='".$new_token."' where user_id = ".$userRow['user_id'];
+           $userRow = DB::instance(DB_NAME)->query($u);  
+         # Delete their token cookie by setting it to a date in the past - effectively logging them out
+          setcookie("token", "", strtotime('-1 year'), '/');
+          ## forward to login page
+           Router::redirect('/users/login/reset_password'); 
+       }
+}
+   public function login($status= NULL) {
       # Setup view
       $this->template->content = View::instance('v_users_login');      
       $this->template->title   = "Login";
       # Pass data to the view
-      $this->template->content->error = $error;
+      if (isset($status)) {  // if it has a value
+          if  ($status =="reset_password") {$this->template->content->reset_password = 'Y'; }
+           else {    $this->template->content->error = $status; }
+       }  
       # Render template
       echo $this->template;
-    }
+}
 
     public function p_login() {
 
@@ -174,10 +286,5 @@
     $q = "select count(email) as email_count from users where email = '".$email."'";   
     $emailCount =  DB::instance(DB_NAME)->select_field($q);  
     echo $emailCount;
-    }
-    public function deleteUser($user_Id=NULL) { 
-      $q = "delete from users where user_id = $user_Id";     
-      DB::instance(DB_NAME)->query($q);      
-      echo "user removed from ".DB_NAME;
     }
 } # end of the class

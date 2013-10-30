@@ -1,5 +1,11 @@
 <pageInstruction> to sign up with us, enter values and then submit.</pageInstruction>
  <br/>
+    <?php if(isset($error)): ?>
+        <div class='error'>
+            Error, a valid <?=$error ?> is required!
+        </div>
+        <br>
+    <?php endif; ?>
 <form class='main' method='POST'  action='/users/p_signup'>
     First Name<br>
     <input type='text' name='first_name'>

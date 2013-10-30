@@ -53,9 +53,13 @@
      <hr/>
  
      <footer   id="disclosure"> 
-     This Monkey blog is brought to you by: Guang Long (Harvard DWA15-P2 )<br>     
-     Extra Features: 1)::signup (email validation, password strength) <br/>       
-     Extra Features: 2)::Profile: switch visiblity to allow/disallow the others to see your posts<br>          
+     This Monkey blog is brought to you by: Guang Long (Harvard DWA15-P2 )<br/>     
+     +1)::signup (email validation, password strength) <br/>       
+     +2)::Signup: Welcome email (tested with gmail account) <br/>  
+     +3)::Profile: switch visiblity to show/hide you/your posts from  the others <br/>               
+     +4)::Profile: Login count <br/>               
+     +5)::Login: forgot password? rest password via email <br/>  
+ 
      </footer>
       
 </body>
