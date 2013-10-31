@@ -1,12 +1,12 @@
 <?php
-class posts_controller extends base_controller {
+    class posts_controller extends base_controller {
 
     public function __construct() {
         parent::__construct();
 
         # Make sure user is logged in if they want to use anything in this controller
         if(!$this->user) {
-            die("Members only. <a href='/users/login'>Login</a>");
+           die("Members only. <a href='/users/login'>Login</a>");
         }
     }
 
@@ -35,12 +35,12 @@ class posts_controller extends base_controller {
         DB::instance(DB_NAME)->insert('posts', $_POST);
 
         # Quick and dirty feedback
-       #echo "Your post has been added. <a href='/posts/add'>Add another</a>";
-       # forward to posts/add to render the add page
-      Router::redirect("/posts/add/status");
+        #echo "Your post has been added. <a href='/posts/add'>Add another</a>";
+        # forward to posts/add to render the add page
+        Router::redirect("/posts/add/status");
       }
 
-     public function index() {
+    public function index() {
 
         # Set up the View
         $this->template->content = View::instance('v_posts_index');

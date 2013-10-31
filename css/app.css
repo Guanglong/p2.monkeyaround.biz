@@ -10,53 +10,61 @@ header {
    border-radius: 15px;
    padding: 20px 15%;  
  }
-pageInstruction {
+section {
    font-size:30;       
    text-align: center; 
    display: block; 
    color:red;
 }
 body {
-  background: rgb(100,200,100)  ;
-  padding: 40px 25%;  
-  width: 50%;    
+   background: rgb(100,200,100)  ;
+   padding: 40px 25%;  
+   width: 50%;    
 } 
 
 .main {
-  border-width: 1; 
-  border: solid; 
-  text-align: center;
-  background: white ;
-  border-radius: 15px;
-  box-shadow:5px 5px 5px 20px yellow inset;  
-  text-shadow: 5px 3px 1px #bbbaba;
+   border-width: 1; 
+   border: solid; 
+   text-align: center;
+   background: white ;
+   border-radius: 15px;
+   box-shadow:5px 5px 5px 20px yellow inset;  
+   text-shadow: 5px 3px 1px #bbbaba;
 }
 
 div#mainContent {  
-    display: block;  
-    margin-bottom: 20px;
-    padding: 15px 10px;  
-    text-align: center;
+   display: block;  
+   margin-bottom: 20px;
+   padding: 15px 10px;  
+   text-align: center;
 }  
 
 article {
-    display: block;   
-    color:red;
+   display: block;   
+   color:red;
  }   
 footer {
    text-align: center;    
    color:black;
  }
 button {   
-    color:red;
+   color:red;
    font-size: 8;
    width: 135px;
-  height: 30px; 
-  margin: 0;
-  padding: 0   
+   height: 30px; 
+   margin: 0;
+   padding: 0   
  }
 
 div {
-      text-align: center;
+   text-align: center;
 }
 
+li {
+  text-align:left;
+}
+
+table {  
+  position:inherit;
+  text-align: center;
+}
