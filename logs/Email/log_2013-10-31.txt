@@ -1,0 +1,25 @@
+2013-10-31 19:17:52 - INFO --> -------------------------- 
+2013-10-31 19:17:52 - INFO --> Controller/Method: users/p_signup 
+2013-10-31 19:17:52 - INFO --> From: Monkey Blog (webmaster@monkeyaround.com) 
+2013-10-31 19:17:52 - INFO --> To: Ethan Long (Ethanklong@gmail.com),  
+2013-10-31 19:17:52 - INFO --> CC: G (G), g (g),  
+2013-10-31 19:17:52 - INFO --> BCC: G (G), g (g),  
+2013-10-31 19:17:52 - INFO --> Subject: Welcome to Monkey Blog - Dev 
+2013-10-31 19:17:52 - INFO --> Body: Hi Ethan, this is just a message to confirm your registration with Monkey Blog, No actions are required, your account is active automatically! Please do not reply to this email, this email address  is not actively beging monitored 
+2013-10-31 19:23:36 - INFO --> -------------------------- 
+2013-10-31 19:23:36 - INFO --> Controller/Method: users/p_signup 
+2013-10-31 19:23:36 - INFO --> From: Monkey Blog (webmaster@monkeyaround.com) 
+2013-10-31 19:23:36 - INFO --> To: ggg Lull (gwonglong@ymail.com),  
+2013-10-31 19:23:36 - INFO --> CC: G (G), g (g),  
+2013-10-31 19:23:36 - INFO --> BCC: G (G), g (g),  
+2013-10-31 19:23:36 - INFO --> Subject: Welcome to Monkey Blog - Dev 
+2013-10-31 19:23:36 - INFO --> Body: Hi ggg, this is just a message to confirm your registration with Monkey Blog, No actions are required, your account is active automatically! Please do not reply to this email, this email address  is not actively beging monitored 
+2013-10-31 19:25:17 - INFO --> -------------------------- 
+2013-10-31 19:25:17 - INFO --> Controller/Method: users/p_signup 
+2013-10-31 19:25:17 - INFO --> From: Monkey Blog (webmaster@monkeyaround.com) 
+2013-10-31 19:25:17 - INFO --> To: :( :) (:?),  
+2013-10-31 19:25:17 - INFO --> CC: G (G), g (g),  
+2013-10-31 19:25:17 - INFO --> BCC: G (G), g (g),  
+2013-10-31 19:25:17 - INFO --> Subject: Welcome to Monkey Blog - Dev 
+2013-10-31 19:25:17 - INFO --> Body: Hi :(, this is just a message to confirm your registration with Monkey Blog, No actions are required, your account is active automatically! Please do not reply to this email, this email address  is not actively beging monitored 
+2013-10-31 19:25:17 - INFO --> FAILED TO SEND EMAIL 
