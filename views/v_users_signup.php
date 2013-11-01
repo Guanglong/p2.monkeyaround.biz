@@ -2,7 +2,7 @@
  <br/>
     <?php if(isset($error)): ?>
         <div class='error'>
-            Error, a valid <?=$error ?> is required!
+            Error, please check your <?=$error ?> !
         </div>
         <br>
     <?php endif; ?>

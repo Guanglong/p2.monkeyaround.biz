@@ -11,7 +11,7 @@
 
     <?php if(isset($error)): ?>
         <div class='error'>
-            Password could not be reset, are you sure you have the right email address entered?
+            Password could not be reset:<?= $error ?>.
         </div>
         <br>
     <?php endif; ?>
