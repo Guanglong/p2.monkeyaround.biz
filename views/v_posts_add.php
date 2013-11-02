@@ -1,4 +1,4 @@
-<section>Add new Post </section>
+<section>Add New Post </section>
 <form method='POST' action='/posts/p_add'>
 
   <?php if(isset($status)): ?>

@@ -1,6 +1,6 @@
 <section> to sign up with us, enter values and then submit.</section>
  <br/>
-    <?php if(isset($error)): ?>
+    <?php if(isset($error) &&  strlen($error) >0): ?>
         <div class='error'>
             Error, please check your <?=$error ?> !
         </div>

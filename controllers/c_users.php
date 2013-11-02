@@ -22,14 +22,16 @@
       );
 
       # Use load_client_files to generate the links from the above array
-      $this->template->client_files_head = Utils::load_client_files($client_files_head);  
-      if ($error =='email_password') {
-        $error_message = "email and password combination";
-      } else {
-        $error_message ="email";
+      $this->template->client_files_head = Utils::load_client_files($client_files_head);
+      if (isset($error)) {
+         if ($error =='email_password') {
+            $error_message = "email and password combination";
+         } else {
+            $error_message ="";
+         }
+
+         $this->template->content->error = $error_message;
       }
-      $this->template->content->error = $error_message;
-      
       # Render template
       echo $this->template;            
    }

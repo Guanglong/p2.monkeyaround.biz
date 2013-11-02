@@ -1,4 +1,4 @@
-<section> This is your profile, <?=$user->first_name."!<br/>"; ?> To change the visibility of your posts, Click 'Swith Visibility' button </section>
+<section> This is your profile, <?=$user->first_name."!<br/>"; ?> To change the visibility of your posts, Click 'Switch Visibility' button </section>
 <br/>
 <div>Last Name:<?php if($user) echo $user->last_name; ?></div><br/>
 <div id='email'>Email: <?php if($user) echo $user->email; ?></div><br/>

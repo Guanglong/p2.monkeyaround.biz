@@ -161,10 +161,3 @@ function handleOnCheckEmail(ajaxData){
       }   
    }
 }
-
-
-
-
-
-
-
