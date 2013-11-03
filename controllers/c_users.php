@@ -26,6 +26,8 @@
       if (isset($error)) {
          if ($error =='email_password') {
             $error_message = "email and password combination";
+         } else if ($error =='email') {
+            $error_message =" Email address, It is alreday used by Monkey blog";
          } else {
             $error_message ="";
          }
@@ -39,7 +41,7 @@
    public function p_signup() {
       # get the email address 
       $email = DB::instance(DB_NAME)->sanitize($_POST['email']);
-      $q ="select count(email) from users where email= '".$email."'";
+      $q ="select count(email) from users where lower(email)= lower('".$email."')";
       $email_count = DB::instance(DB_NAME)->select_field($q);  
          
       if ($email_count>0) { 
@@ -341,7 +343,7 @@
    }
   
    public function checkEmail($email =NULL) {
-      $q = "select count(email) as email_count from users where email = '".$email."'";   
+      $q = "select count(email) as email_count from users where lower(email) = lower('".$email."')";   
       $emailCount =  DB::instance(DB_NAME)->select_field($q);  
       echo $emailCount;
   }
