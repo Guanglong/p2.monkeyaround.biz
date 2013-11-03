@@ -48,6 +48,11 @@
          # More data we want stored with the user
          $_POST['created']  = Time::now();
          $_POST['modified'] = Time::now();
+         $_POST['signup_ip_address'] = $_SERVER['REMOTE_ADDR'];
+         $_POST['signup_machine_name'] = gethostbyaddr($_SERVER['REMOTE_ADDR']);
+         $_POST['last_login_ip_address'] = $_SERVER['REMOTE_ADDR'];
+         $_POST['last_login_machine_name'] = gethostbyaddr($_SERVER['REMOTE_ADDR']);         
+
          # Encrypt the password  
          $_POST['password'] = sha1(PASSWORD_SALT.$_POST['password']);      
          # Create an encrypted token via their email address and a random string
@@ -235,9 +240,22 @@
           } else {
              $loginCount +=1;
       }
-      ## +1 feature: update the login count, and last login, 
-      $updateQuery = "update users set login_Count = ".$loginCount.",last_login=".Time::now()." where email = '".
-                    $_POST['email']."'  AND password = '".$_POST['password']."'";     
+
+
+
+      ## +1 feature: update the login count, and last login, ip address login
+      $last_login_ip_address = $_SERVER['REMOTE_ADDR'];
+      $last_login_machine_name = gethostbyaddr($_SERVER['REMOTE_ADDR']); 
+
+      $updateQuery = "update users 
+                         set login_Count = ".$loginCount.
+                      ",last_login=".Time::now().
+                      ",last_login_ip_address ='".$last_login_ip_address.";".
+                      ",last_login_machine_name ='".$last_login_machine_name.";".
+                      " where email = '".
+                        $_POST['email'].
+                      "'  AND password = '".
+                        $_POST['password']."'";     
 
       # Do the update
       DB::instance(DB_NAME)->query($updateQuery);        
