@@ -1,20 +1,37 @@
+// perform data validation  when click submit button
 function onSubmit(){
    var error =0;
    var firstName = document.getElementsByName("first_name")[0].value; 
-   if (firstName.length ==0) {error +=1; document.getElementById('firstNameValidation').innerHTML="First name is required";}
-   else {document.getElementById('firstNameValidation').innerHTML=""; }
+   if (firstName.length ==0) {
+      error +=1; document.getElementById('firstNameValidation').innerHTML="First name is required";
+   }
+   else {
+      document.getElementById('firstNameValidation').innerHTML=""; 
+   }
 
    var lastName = document.getElementsByName("last_name")[0].value; 
-   if (lastName.length ==0) {error +=1; document.getElementById('lastNameValidation').innerHTML="Last name is required";}
-   else {document.getElementById('lastNameValidation').innerHTML=""; }
+   if (lastName.length ==0) {
+      error +=1; document.getElementById('lastNameValidation').innerHTML="Last name is required";
+   }
+   else {
+      document.getElementById('lastNameValidation').innerHTML=""; 
+   }
 
    var email = document.getElementsByName("email")[0].value; 
-   if (email.length ==0) {error +=1; document.getElementById('emailValidation').innerHTML="Email is required";}
-   else {document.getElementById('emailValidation').innerHTML=""; }
+   if (email.length ==0) {
+       error +=1; document.getElementById('emailValidation').innerHTML="Email is required";
+   }
+   else {
+      document.getElementById('emailValidation').innerHTML=""; 
+   }
 
    var password = document.getElementsByName("password")[0].value; 
-   if (password.length ==0) {error +=1; document.getElementById('passwordValidation').innerHTML="Password is required";}
-   else {document.getElementById('passwordValidation').innerHTML=""; }
+   if (password.length ==0) {
+       error +=1; document.getElementById('passwordValidation').innerHTML="Password is required";
+   }
+   else {
+       document.getElementById('passwordValidation').innerHTML=""; 
+   }
 
    if (error !=0) {
      return false;
@@ -27,9 +44,14 @@ function onSubmit(){
 function checkEmail(email){
    var email = document.getElementsByName("email")[0].value;
    
-    if (email.length >0 ) {      
-       if (!validEmailFormat(email)){ document.getElementById('emailValidation').innerHTML="Invalid Email Address"; }
-       else {checkEmailViaAjax(email); }
+    if (email.length >0 ) {
+       // check for the format of the email address entered      
+       if (!validEmailFormat(email)){
+          document.getElementById('emailValidation').innerHTML="Invalid Format for Email Address"; 
+       }
+       else {
+        checkEmailViaAjax(email); 
+       }
    }
 }
 
@@ -149,7 +171,7 @@ function checkEmailViaAjax(email){
 
  
 function handleOnCheckEmail(ajaxData){
-   if (ajaxData.readyState==4 && ajaxData.status==200)    {    
+   if (ajaxData.readyState==4 && ajaxData.status==200)  {    
       var emailCount = ajaxData.responseText.substr(0,1);    
     
       if (Number(emailCount) !=0) {

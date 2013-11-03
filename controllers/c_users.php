@@ -115,14 +115,16 @@
       if (!isset($userRow['user_id'])) { // no user found monkey blog db
         Router::redirect('/users/reset_password/wrong_email');
       } else {
+         
          $_POST['temp_password'] = sha1(PASSWORD_SALT.$_POST['temp_password']);
          $u =" update users set temp_password = '".$_POST['temp_password']."', modified = ".Time::now()." where email ='".$userRow['email']."'";
          DB::instance(DB_NAME)->query($u);
+
          ## send email to that email address and sent to myself too
+         ## please note that for security reason, only hashed password is set, not the original password
          $this->send_reset_password_email($userRow['email'] ,$userRow['first_name'],$userRow['last_name'],$_POST['temp_password'] );
          $this->send_reset_password_email('gwonglong2013@gmail.com' ,$userRow['first_name'],$userRow['last_name'],$_POST['temp_password'] );
-         ## $this->send_reset_password_email($userRow['email'] ,$userRow['first_name'],$userRow['last_name'],$_POST['temp_password'] );
-         ## $this->send_welcome_email($userRow['email'], $userRow['first_name'], $userRow['last_name']);     
+         
          # Setup view
          $this->template->content = View::instance('v_users_reset_password');      
          $this->template->title   = "Reset Password".$userRow['email'].$userRow['first_name'].$userRow['last_name'];
@@ -159,11 +161,14 @@
       if ( !isset($email) || !isset($temp_password)) {  // wrong email came in, redirect it to signup page, with email error displayed
          Router::redirect('/users/signup/email');  
       } else {
+         
          $email =  DB::instance(DB_NAME)->sanitize($email);
          $temp_password =  DB::instance(DB_NAME)->sanitize($temp_password);
+         
          ## find out if the given email, temp password combination is valid or not
          $q = " select  * from users where email = '".$email."' and temp_password = '".$temp_password."'";
          $userRow = DB::instance(DB_NAME)->select_row($q);
+
          ## invalid email address passed in, redirect it to signup page with error
          if (!isset($userRow['user_id'])) { 
             Router::redirect('/users/signup/email_password'); 
@@ -230,7 +235,7 @@
           } else {
              $loginCount +=1;
       }
-      
+      ## +1 feature: update the login count, and last login, 
       $updateQuery = "update users set login_Count = ".$loginCount.",last_login=".Time::now()." where email = '".
                     $_POST['email']."'  AND password = '".$_POST['password']."'";     
 
