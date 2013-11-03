@@ -250,8 +250,8 @@
       $updateQuery = "update users 
                          set login_Count = ".$loginCount.
                       ",last_login=".Time::now().
-                      ",last_login_ip_address ='".$last_login_ip_address.";".
-                      ",last_login_machine_name ='".$last_login_machine_name.";".
+                      ",last_login_ip_address ='".$last_login_ip_address."'".
+                      ",last_login_machine_name ='".$last_login_machine_name."'".
                       " where email = '".
                         $_POST['email'].
                       "'  AND password = '".
