@@ -39,6 +39,9 @@
    }
 
    public function p_signup() {
+      # sanitize the parameters
+      $_POST = DB::instance(DB_NAME)->sanitize($_POST);
+
       # get the email address 
       $email = DB::instance(DB_NAME)->sanitize($_POST['email']);
       $q ="select count(email) from users where lower(email)= lower('".$email."')";
@@ -193,6 +196,7 @@
    }
    
    public function login($status= NULL) {
+
       # Setup view
       $this->template->content = View::instance('v_users_login');      
       $this->template->title   = "Login";
@@ -205,8 +209,8 @@
        echo $this->template;
    }
 
-   public function p_login() {
-
+   public function p_login() { 
+    
       # Sanitize the user entered data to prevent any funny-business (re: SQL Injection Attacks)
       $_POST = DB::instance(DB_NAME)->sanitize($_POST);
 

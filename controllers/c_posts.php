@@ -23,6 +23,9 @@
 
     public function p_add() {
 
+        # sanitize the parameters
+        $_POST = DB::instance(DB_NAME)->sanitize($_POST);
+        
         # Associate this post with this user
         $_POST['user_id']  = $this->user->user_id;
 
