@@ -12,7 +12,7 @@
 	<ul>
 	  <li>Sign-Up: Duplicate Email alert via AJAX </li>
 	  <li>Sign-Up page: Password strength reminder </li>  
-	  <li>Sign-Up page: Generate Welcome email upon sign-up, email is sent by monkeyaroundblog@gmail.com (Tested with gmail accounts).</li>
+	  <li>Sign-Up page: Generate Welcome email upon sign-up, email is sent by monkeyaroundblog@gmail.com  or monkey.dw15@gmail.</li>
 	  <li>Profile page: Toggle visiblity of user and user's posts</li>
 	  <li>Profile page: Login count</li>
 	  <li>Login page:  Reset password, confirm the reset via email</li>
