@@ -56,7 +56,8 @@
      This Monkey blog is brought to you by: Guang Long (Harvard DWA15-P2 )<br/>    
       made possible by the instructor Susan Buck and the TFs. --Thanks!  <br><br>
       This site uses gmail to send emails. If google detects unusual activities, it might suspend SMTP feature temporarily,
-      and you would see some error messages related to SMTP on the page. If this is the case, please send me a separate email to reset monkeyaroundblgo.gmail account.
+      and you would see some error messages related to SMTP on the page. If this is the case,
+      please send me a separate email to reset monkeyaroundblog.gmail account.      
      </footer>
       
 </body>
