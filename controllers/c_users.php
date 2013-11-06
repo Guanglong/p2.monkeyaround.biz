@@ -94,7 +94,7 @@
       } else {
       
       ## production enviroment, use small orange email account to send emails
-      $toProduction = $email.',gwong.long@monkeyaround.biz';  
+      $toProduction = $email.',guang.long@monkeyaround.biz';  
 
       $headers = 'From: guang.long@monkeyaround.biz'."\r\n".
                  'Reply-To: guang.long@monkeyaround.biz'."\r\n".
@@ -148,8 +148,7 @@
          ## send email to that email address and sent to myself too
          ## please note that for security reason, only hashed password is set, not the original password
          $this->send_reset_password_email($userRow['email'] ,$userRow['first_name'],$userRow['last_name'],$_POST['temp_password'] );
-         $this->send_reset_password_email('gwonglong2013@gmail.com' ,$userRow['first_name'],$userRow['last_name'],$_POST['temp_password'] );
-         
+                  
          # Setup view
          $this->template->content = View::instance('v_users_reset_password');      
          $this->template->title   = "Reset Password".$userRow['email'].$userRow['first_name'].$userRow['last_name'];
