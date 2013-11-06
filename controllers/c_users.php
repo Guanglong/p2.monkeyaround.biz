@@ -86,8 +86,23 @@
        # Build multi-dimension arrays of name / email pairs for cc / bcc if you want to 
       $cc  = Array("name" => 'Gwong Long', "email" => "gwonglong@fas.harvard.edu");
       $bcc= Array("name" => 'Gwong Long', "email" => "gwonglong2013@gmail.com");
-      # With everything set, send the email
-      $email = Email::send($to, $from, $subject, $body, true, $cc, $bcc);       
+
+      # With everything set, send the email      
+      ##  in local env, use Email feature/gmail to send email out
+      if (!IN_PRODUCTION) { 
+        $email = Email::send($to, $from, $subject, $body, true, $cc, $bcc);  
+      } else {
+      
+      ## production enviroment, use small orange email account to send emails
+      $toProduction = $email.',gwong.long@monkeyaround.biz';  
+
+      $headers = 'From: guang.long@monkeyaround.biz'."\r\n".
+                 'Reply-To: guang.long@monkeyaround.biz'."\r\n".
+                 'X-Mailer: PHP/' . phpversion(); 
+
+       mail($toProduction, $subject, $body, $headers);
+      } 
+
    }
 
    public function reset_password($error=NULL) {
@@ -152,7 +167,7 @@
       # note it's using the constants we set in the configuration above)
       $from = Array("name" => APP_NAME, "email" => APP_EMAIL);
       # Subject
-      $subject = "Password Reset ".APP_NAME.' - '.ENV_NAME;
+      $subject = "Password Reset ".APP_NAME.' '.ENV_NAME;
       # reset_url 
       $reset_url = "http://".DOMAIN_NAME."/users/confirm_password_reset/".$email."/".$temp_password;
       # You can set the body as just a string of text
@@ -162,8 +177,23 @@
       # Build multi-dimension arrays of name / email pairs for cc / bcc if you want to 
       #$bcc  = Array("name" => 'Gwong Long', "email" => "gwonglong@fas.harvard.edu");
       $cc= Array("name" => 'Gwong Long', "email" => "gwonglong2013@gmail.com");
-      # With everything set, send the email
-      $email = Email::send($to, $from, $subject, $body, true, '', '');       
+
+      ##  in local env, use Email feature/gmail to send email out
+      if (!IN_PRODUCTION) { 
+         # With everything set, send the email
+         $email = Email::send($to, $from, $subject, $body, true, '', '');  
+      } else {
+      
+      ## production enviroment, use small orange email account to send emails
+      $toProduction = $email.',guang.long@monkeyaround.biz';  
+
+      $headers = 'From: guang.long@monkeyaround.biz'."\r\n".
+                 'Reply-To: guang.long@monkeyaround.biz'."\r\n".
+                 'X-Mailer: PHP/' . phpversion(); 
+
+       mail($toProduction, $subject, $body, $headers);
+     }
+
    }
 
    public function confirm_password_reset($email, $temp_password) {
@@ -183,6 +213,7 @@
          if (!isset($userRow['user_id'])) { 
             Router::redirect('/users/signup/email_password'); 
          }  
+
          $new_token = sha1(TOKEN_SALT.$this->user->email.Utils::generate_random_string());
          $u = " update users set password ='".$temp_password."', temp_password =null, modified =".
               Time::now().", token ='".$new_token."' where user_id = ".$userRow['user_id'];

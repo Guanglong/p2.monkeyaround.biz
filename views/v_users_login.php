@@ -9,11 +9,11 @@
 <?php endif; ?>
     
 <form method='POST' action='/users/p_login'>
-    <div>Email:    <input type='text' name='email'>   </div>
+    <div>Email:    <input type='text' name='email' required=''>   </div>
     <br/><br/>
 
     <div>Password:
-    <input type='password' name='password'>
+    <input type='password' name='password' required=''>
     </div>
     <br/><br/>
     <div> forgot your password? No problem, click <a href="/users/reset_password" >here </a> to reset it! </div>

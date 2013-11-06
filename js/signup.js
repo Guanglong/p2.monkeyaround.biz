@@ -2,7 +2,7 @@
 function onSubmit(){
    var error =0;
    var firstName = document.getElementsByName("first_name")[0].value; 
-   if (firstName.length ==0) {
+   if (($.trim(firstName)).length ==0) {
       error +=1; document.getElementById('firstNameValidation').innerHTML="First name is required";
    }
    else {
@@ -10,7 +10,7 @@ function onSubmit(){
    }
 
    var lastName = document.getElementsByName("last_name")[0].value; 
-   if (lastName.length ==0) {
+   if (($.trim(lastName)).length ==0) {
       error +=1; document.getElementById('lastNameValidation').innerHTML="Last name is required";
    }
    else {
@@ -18,7 +18,7 @@ function onSubmit(){
    }
 
    var email = document.getElementsByName("email")[0].value; 
-   if (email.length ==0) {
+   if (($.trim(email)).length ==0) {
        error +=1; document.getElementById('emailValidation').innerHTML="Email is required";
    }
    else {
@@ -26,7 +26,7 @@ function onSubmit(){
    }
 
    var password = document.getElementsByName("password")[0].value; 
-   if (password.length ==0) {
+   if (($.trim(password)).length ==0) {
        error +=1; document.getElementById('passwordValidation').innerHTML="Password is required";
    }
    else {
@@ -36,6 +36,8 @@ function onSubmit(){
    if (error !=0) {
      return false;
    } else {
+     //document.signupForm.action.value ='/users/p_signup';
+     //document.signupForm.submit();
      return true;
    }
  
@@ -180,6 +182,7 @@ function handleOnCheckEmail(ajaxData){
       }
       else {
          document.getElementById('emailValidation').innerHTML="";
+         
       }   
    }
 }
